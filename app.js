@@ -81,8 +81,9 @@ app.post('/send-email', upload.array('attachment', 5), (req, res) => {
 
   transport.sendMail(emailOptions)
     .then(() => {
-      console.log('Email sent');
-      res.status(200).send('Email sent successfully');
+      
+      res.status(200).json({ message: 'Email sent successfully' });
+      console.log('email sent')
     })
     .catch(err => {
       console.error(err);
