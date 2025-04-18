@@ -1,0 +1,7 @@
+# Ignore everything
+*
+
+# Negate ignore for the server directory
+!Server/
+
+Server/node_modules/
