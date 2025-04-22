@@ -6,9 +6,16 @@ import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import process from 'process';
+import rateLimit from 'express-rate-limit';
 dotenv.config({ path: './auth.env' });
 
-
+const emailRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 3, // limit each IP to 3 requests per windowMs
+  message: {
+    error: 'Trop de requêtes. Veuillez réessayer plus tard.',
+  },
+});
 
 
 
@@ -62,7 +69,7 @@ app.get('/', (req, res) => {
 });
 
 
-app.post('/send-email', upload.array('attachment', 5), (req, res) => {
+app.post('/send-email', emailRateLimiter,  upload.array('attachment', 5), (req, res) => {
   const { name, phone, email, message } = req.body;
   const files = req.files;
 
