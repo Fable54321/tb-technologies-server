@@ -3,12 +3,12 @@ import stripe from 'stripe'
 
 const router = express.Router()
 
-const stripe = new stripe(process.env.STRIPE_SECRET_KEY);
+const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY);
 
 
 router.post('/create-checkout-session', async (req, res) => {
     try {
-      const session = await stripe.checkout.sessions.create({
+      const session = await stripeInstance.checkout.sessions.create({
         payment_method_types: ['card'],
         mode: 'subscription',
         line_items: [
