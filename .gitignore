@@ -1,5 +1,5 @@
 .qodo
-.env/*
+.env
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
