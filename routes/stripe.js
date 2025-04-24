@@ -3,7 +3,7 @@ import stripe from 'stripe'
 
 const router = express.Router()
 
-const stripe = process.env.STRIPE_SECRET_KEY
+const stripe = new stripe(process.env.STRIPE_SECRET_KEY);
 
 
 router.post('/create-checkout-session', async (req, res) => {
