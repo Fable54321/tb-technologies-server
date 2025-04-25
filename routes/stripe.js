@@ -1,9 +1,9 @@
 import express from 'express'
-import stripe from 'stripe'
+import Stripe from 'stripe'
 
 const router = express.Router()
 
-const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY);
+const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 
 router.post('/create-checkout-session', async (req, res) => {
