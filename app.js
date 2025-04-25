@@ -8,7 +8,7 @@ import fs from 'fs';
 import process from 'process';
 import rateLimit from 'express-rate-limit';
 dotenv.config({ path: './auth.env' });
-import stripeRoute from './routes/stripe'
+import stripeRoute from './routes/stripe.js'
 
 const emailRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
