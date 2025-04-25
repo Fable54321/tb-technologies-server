@@ -8,6 +8,10 @@ const router = express.Router()
 
 const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+router.get('/', (req, res) => {
+  res.send('Stripe route is active');
+});
+
 
 router.post('/create-checkout-session', async (req, res) => {
     try {
