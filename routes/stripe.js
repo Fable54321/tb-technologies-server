@@ -1,12 +1,17 @@
 import express from 'express'
 import Stripe from 'stripe'
 import dotenv from 'dotenv'
+import cors from 'cors'
+
 dotenv.config();
+
 
 
 const router = express.Router()
 
 const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+router.use(cors());
 
 router.get('/', (req, res) => {
   res.send('Stripe route is active');
