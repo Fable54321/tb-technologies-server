@@ -28,7 +28,7 @@ router.post('/create-checkout-session', async (req, res) => {
         cancel_url: 'https://your-frontend.com/cancel',
       });
   
-      res.json({ id: session.id });
+      res.json({ sessionId: session.id });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Something went wrong' });
