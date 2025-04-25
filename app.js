@@ -30,7 +30,16 @@ app.use('/stripe', stripeRoute);
 
 app.use(express.json());
 
-app.use(cors({ origin: 'http://localhost:5173/', methods: ['GET', 'POST'], allowedHeaders: ['Content-Type', 'multipart/form-data', 'Authorization'] }));
+app.use(
+  cors({
+    origin: ["http://localhost:5173'", "https://tb-technologies.ca"],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "multipart/form-data", "Authorization"],
+    credentials: true,
+  })
+);
+
+app.options("*", cors());
 
 const uploadDir = 'uploads';
 if (!fs.existsSync(uploadDir)) {
