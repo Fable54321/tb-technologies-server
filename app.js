@@ -7,7 +7,7 @@ import path from 'path';
 import fs from 'fs';
 import process from 'process';
 import rateLimit from 'express-rate-limit';
-dotenv.config({ path: './auth.env' });
+dotenv.config();
 import stripeRoute from './routes/stripe.js'
 
 const emailRateLimiter = rateLimit({
@@ -32,7 +32,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://localhost:5173'", "https://tb-technologies.ca"],
+    origin: ["http://localhost:5173", "https://tb-technologies.ca"],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "multipart/form-data", "Authorization"],
     credentials: true,
