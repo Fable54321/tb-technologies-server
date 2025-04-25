@@ -39,7 +39,7 @@ app.use(
   })
 );
 
-app.options("*", cors());
+// app.options("*", cors());
 
 const uploadDir = 'uploads';
 if (!fs.existsSync(uploadDir)) {
