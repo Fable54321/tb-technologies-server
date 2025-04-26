@@ -31,6 +31,7 @@ router.post('/save-signature', async (req, res) => {
 
   // Save the image to the server
   const fileName = `${fullName.replace(/\s+/g, '_')}_${Date.now()}.png`;
+  
   const filePath = path.join(__dirname, '../signatures', fileName);
   const fileUrl = `/signatures/${fileName}`;
 

@@ -7,12 +7,15 @@ import path from 'path';
 import fs from 'fs';
 import process from 'process';
 import rateLimit from 'express-rate-limit';
-dotenv.config();
+import { fileURLToPath } from 'url';
 import stripeRoute from './routes/stripe.js'
 import signatureRoute from './routes/signature.js'
 import mongoose from 'mongoose';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+dotenv.config();
 
 
 mongoose.connect(process.env.MONGODB_URI)
