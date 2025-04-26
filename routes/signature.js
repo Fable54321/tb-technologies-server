@@ -32,6 +32,7 @@ router.post('/save-signature', async (req, res) => {
   // Save the image to the server
   const fileName = `${fullName.replace(/\s+/g, '_')}_${Date.now()}.png`;
   const filePath = path.join(__dirname, '../signatures', fileName);
+  const fileUrl = `/signatures/${fileName}`;
 
   try {
     await fs.promises.writeFile(filePath, base64Data, 'base64');
@@ -42,7 +43,7 @@ router.post('/save-signature', async (req, res) => {
         email,
         contract,
         date,
-        signaturePath: filePath, // or adjust if you want a URL instead
+        signature: fileUrl, // or adjust if you want a URL instead
       });
   
       await newContract.save(); // saves to Atlas
