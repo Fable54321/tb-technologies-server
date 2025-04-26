@@ -20,7 +20,7 @@ router.get('/save-signature', (req, res) => {
 router.use(cors())
 
 router.post('/save-signature', async (req, res) => {
-  const { signature, fullName, email, contract, date } = req.body;
+  const { signature, fullName, email, contract, date, contractHash } = req.body;
 
   if (!signature || !fullName || !email || !contract || !date) {
     return res.status(400).send('Missing required fields');
@@ -45,7 +45,7 @@ router.post('/save-signature', async (req, res) => {
         fullName,
         email,
         contract,
-        contracHash,
+        contractHash,
         date,
         signature: fileUrl, // or adjust if you want a URL instead
         ipAddress
