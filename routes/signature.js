@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
-import Contract from '../models/Contract';
+import Contract from '../models/Contract.js';
 
 // For resolving __dirname since it's not available in ES Modules
 const __filename = fileURLToPath(import.meta.url);
