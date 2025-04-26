@@ -10,6 +10,15 @@ import rateLimit from 'express-rate-limit';
 dotenv.config();
 import stripeRoute from './routes/stripe.js'
 import signatureRoute from './routes/signature.js'
+import mongoose from 'mongoose';
+
+
+
+
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const emailRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

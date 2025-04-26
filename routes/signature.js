@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
+import Contract from '../models/Contract';
 
 // For resolving __dirname since it's not available in ES Modules
 const __filename = fileURLToPath(import.meta.url);
@@ -19,9 +20,9 @@ router.get('/save-signature', (req, res) => {
 router.use(cors())
 
 router.post('/save-signature', async (req, res) => {
-  const { signature, fullName, email } = req.body;
+  const { signature, fullName, email, contract, date } = req.body;
 
-  if (!signature || !fullName || !email) {
+  if (!signature || !fullName || !email || !contract || !date) {
     return res.status(400).send('Missing required fields');
   }
 
@@ -34,9 +35,22 @@ router.post('/save-signature', async (req, res) => {
 
   try {
     await fs.promises.writeFile(filePath, base64Data, 'base64');
+
+     // Save the contract info into MongoDB
+     const newContract = new Contract({
+        fullName,
+        email,
+        contract,
+        date,
+        signaturePath: filePath, // or adjust if you want a URL instead
+      });
+  
+      await newContract.save(); // saves to Atlas
+
+
     res.send('Signature saved successfully');
   } catch (err) {
-    console.error('Error saving signature:', err.message);
+    console.error('Error saving contract to the database', err.message);
     console.error(err);
     res.status(500).send('Failed to save signature');
   }
