@@ -9,6 +9,7 @@ import process from 'process';
 import rateLimit from 'express-rate-limit';
 dotenv.config();
 import stripeRoute from './routes/stripe.js'
+import signatureRoute from './routes/signature.js'
 
 const emailRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -25,7 +26,7 @@ const app = express();
 const port = process.env.PORT || 5000; 
 
 
-
+app.use('/signature', signatureRoute);
 app.use('/stripe', stripeRoute);
 
 app.use(express.json());
