@@ -9,6 +9,8 @@ const __dirname = path.dirname(__filename);
 
 const router = express.Router();
 
+router.use(cors());
+
 router.get('/save-signature', (req, res) => {
     res.send('Save-signature route is working!');
   });
