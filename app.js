@@ -15,10 +15,14 @@ import mongoose from 'mongoose';
 
 
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log("Connected to MongoDB successfully");
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+  });
+
 
 const emailRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
