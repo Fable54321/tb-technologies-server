@@ -20,7 +20,7 @@ router.get('/save-signature', (req, res) => {
 router.use(cors())
 
 router.post('/save-signature', async (req, res) => {
-  const { signature, fullName, email, contract, date, contractHash } = req.body;
+  const { signature, fullName, email, contract, date, contractHash, time } = req.body;
 
   if (!signature || !fullName || !email || !contract || !date) {
     return res.status(400).send('Missing required fields');
@@ -48,7 +48,8 @@ router.post('/save-signature', async (req, res) => {
         contractHash,
         date,
         signature: fileUrl, // or adjust if you want a URL instead
-        ipAddress
+        ipAddress, 
+        time
       });
   
       await newContract.save(); // saves to Atlas
