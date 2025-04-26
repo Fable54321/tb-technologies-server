@@ -2,6 +2,7 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cors from 'cors';
 
 // For resolving __dirname since it's not available in ES Modules
 const __filename = fileURLToPath(import.meta.url);
@@ -14,6 +15,8 @@ const router = express.Router();
 router.get('/save-signature', (req, res) => {
     res.send('Save-signature route is working!');
   });
+
+router.use(cors())
 
 router.post('/save-signature', async (req, res) => {
   const { signature, fullName, email } = req.body;
