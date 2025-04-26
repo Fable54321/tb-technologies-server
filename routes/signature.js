@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 const router = express.Router();
 
-
+router.use(express.json());
 
 router.get('/save-signature', (req, res) => {
     res.send('Save-signature route is working!');
@@ -36,7 +36,8 @@ router.post('/save-signature', async (req, res) => {
     await fs.promises.writeFile(filePath, base64Data, 'base64');
     res.send('Signature saved successfully');
   } catch (err) {
-    console.error('Error saving signature:', err);
+    console.error('Error saving signature:', err.message);
+    console.error(err);
     res.status(500).send('Failed to save signature');
   }
 });
