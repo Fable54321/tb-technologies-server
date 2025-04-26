@@ -26,6 +26,8 @@ router.post('/save-signature', async (req, res) => {
     return res.status(400).send('Missing required fields');
   }
 
+  const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+
   // Decode the base64 image
   const base64Data = signature.replace(/^data:image\/png;base64,/, '');
 
@@ -43,8 +45,10 @@ router.post('/save-signature', async (req, res) => {
         fullName,
         email,
         contract,
+        contracHash,
         date,
         signature: fileUrl, // or adjust if you want a URL instead
+        ipAddress
       });
   
       await newContract.save(); // saves to Atlas
