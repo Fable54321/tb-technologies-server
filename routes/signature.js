@@ -22,12 +22,12 @@ ensureDir(path.join(__dirname, '../pdfs'));
 const router = express.Router();
 
 router.use(express.json());
+router.use(cors())
+
 
 router.get('/save-signature', (req, res) => {
-    res.send('Save-signature route is working!');
-  });
-
-router.use(cors())
+  res.send('Save-signature route is working!');
+});
 
 router.post('/save-signature', async (req, res) => {
   const { signature, fullName, email, contract, date, contractHash, contractHtml, time } = req.body;
@@ -37,33 +37,16 @@ router.post('/save-signature', async (req, res) => {
   }
 
   const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-
-  // Decode the base64 image
   const base64Data = signature.replace(/^data:image\/png;base64,/, '');
-
-  // Save the image to the server
   const fileName = `${fullName.replace(/\s+/g, '_')}_${Date.now()}.png`;
-  
   const filePath = path.join(__dirname, '../signatures', fileName);
   const fileUrl = `/signatures/${fileName}`;
 
   try {
     await fs.promises.writeFile(filePath, base64Data, 'base64');
 
-     // Save the contract info into MongoDB
-     const newContract = new Contract({
-        fullName,
-        email,
-        contract,
-        contractHash,
-        contractHtml,
-        date,
-        signature: fileUrl, 
-        ipAddress, 
-        time
-      });
-  
-     const savedContract = await newContract.save(); // saves to Atlas
+    
+
 
      const browser = await puppeteer.launch({
       headless: 'new',
@@ -82,6 +65,26 @@ router.post('/save-signature', async (req, res) => {
     });
 
     await browser.close();
+
+    const pdfUrl = `/pdfs/${path.basename(pdfPath)}`;
+
+     const newContract = new Contract({
+      fullName,
+      email,
+      contract,
+      contractHash,
+      date,
+      signature: fileUrl,
+      pdfUrl, 
+      ipAddress, 
+      time
+    });
+  
+  
+     const savedContract = await newContract.save(); // saves to Atlas
+
+    
+    
 
     res.status(200).json({
       message: 'Contract and signature saved, PDF generated',
