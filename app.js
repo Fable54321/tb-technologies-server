@@ -42,6 +42,7 @@ const app = express();
 const port = process.env.PORT || 5000; 
 
 app.use('/signatures', express.static(path.join(__dirname, 'signatures')));
+app.use('/pdfs', express.static(path.join(__dirname, 'pdfs')));
 
 app.use('/signature', signatureRoute);
 app.use('/stripe', stripeRoute);
