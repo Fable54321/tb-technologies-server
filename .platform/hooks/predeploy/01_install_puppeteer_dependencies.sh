@@ -18,7 +18,6 @@ yum install -y \
   cairo \
   libXScrnSaver \
   libXrandr \
-  GConf2 \
   nss \
   xorg-x11-fonts-100dpi \
   xorg-x11-fonts-75dpi \
