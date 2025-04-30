@@ -5,6 +5,7 @@ const contractSchema = new mongoose.Schema({
         email: { type: String, required: true },
         signature: { type: String, required: true },
         contract: { type: String, required: true },
+        contractHtml: { type: String, required: true },
         contractHash: { type: String, required: true },
         date: { type: String, required: true },
         ipAddress: { type: String, required: true },

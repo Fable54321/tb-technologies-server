@@ -3,11 +3,21 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
-import Contract from '../models/Contract.js';
+import Contract from '../models/Contract';
+import puppeteer from 'puppeteer';
 
 // For resolving __dirname since it's not available in ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const ensureDir = (dirPath) => {
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+};
+
+ensureDir(path.join(__dirname, '../signatures'));
+ensureDir(path.join(__dirname, '../pdfs'));
 
 const router = express.Router();
 
@@ -20,9 +30,9 @@ router.get('/save-signature', (req, res) => {
 router.use(cors())
 
 router.post('/save-signature', async (req, res) => {
-  const { signature, fullName, email, contract, date, contractHash, time } = req.body;
+  const { signature, fullName, email, contract, date, contractHash, contractHtml, time } = req.body;
 
-  if (!signature || !fullName || !email || !contract || !date) {
+  if (!signature || !fullName || !email || !contract || !date || !contractHash || !contractHtml ||!time) {
     return res.status(400).send('Missing required fields');
   }
 
@@ -46,16 +56,43 @@ router.post('/save-signature', async (req, res) => {
         email,
         contract,
         contractHash,
+        contractHtml,
         date,
-        signature: fileUrl, // or adjust if you want a URL instead
+        signature: fileUrl, 
         ipAddress, 
         time
       });
   
-      await newContract.save(); // saves to Atlas
+     const savedContract = await newContract.save(); // saves to Atlas
+
+     const browser = await puppeteer.launch({
+      headless: 'new',
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+     });
+
+    const page = await browser.newPage(); 
+
+    await page.setContent(contractHtml, { waitUntil: 'networkidle0' });
+
+    const pdfPath = path.join(__dirname, `../pdfs/${fileName.replace('.png', '.pdf')}`);
+    await page.pdf({
+      path: pdfPath,
+      format: 'A4',
+      printBackground: true
+    });
+
+    await browser.close();
+
+    res.status(200).json({
+      message: 'Contract and signature saved, PDF generated',
+      contractId: savedContract._id,
+      pdfUrl: `/pdfs/${path.basename(pdfPath)}`
+    });
 
 
-    res.send('Signature saved successfully');
+
+
+    
   } catch (err) {
     console.error('Error saving contract to the database', err.message);
     console.error(err);
