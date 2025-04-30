@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
-import Contract from '../models/Contract';
+import Contract from '../models/Contract.js';
 import puppeteer from 'puppeteer';
 
 // For resolving __dirname since it's not available in ES Modules

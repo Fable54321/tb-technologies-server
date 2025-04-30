@@ -1,5 +1,5 @@
 {
-    "name": "alpine-server-side",
+    "name": "tb-server-side",
     "version": "1.0.0",
     "type": "module",
     "dependencies": {
