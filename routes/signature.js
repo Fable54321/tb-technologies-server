@@ -75,7 +75,7 @@ router.post('/save-signature', async (req, res) => {
       contractHash,
       date,
       signature: fileUrl,
-      pdfUrl, 
+      pdf: pdfUrl, 
       ipAddress, 
       time
     });
