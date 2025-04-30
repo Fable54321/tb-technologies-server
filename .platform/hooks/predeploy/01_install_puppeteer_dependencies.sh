@@ -1,27 +1,29 @@
 #!/bin/bash
 
-echo "Installing required libraries for Puppeteer..."
+echo "Installing Puppeteer dependencies..."
 
-sudo yum install -y \
+yum install -y \
   atk \
   cups-libs \
   gtk3 \
-  libatk-1.0.so.0 \
-  libgdk-x11-2.0.so.0 \
-  libpango-1.0.so.0 \
-  libx11 \
-  libxcomposite \
-  libxdamage \
-  libxrandr \
-  xorg-x11-server-Xvfb \
-  libnss3 \
   alsa-lib \
-  cairo \
+  xorg-x11-server-Xvfb \
+  libXcomposite \
+  libXcursor \
+  libXdamage \
+  libXext \
+  libXi \
+  libXtst \
   pango \
+  cairo \
+  libXScrnSaver \
+  libXrandr \
+  GConf2 \
+  nss \
+  xorg-x11-fonts-100dpi \
   xorg-x11-fonts-75dpi \
+  xorg-x11-utils \
   xorg-x11-fonts-Type1 \
-  libXScrnSaver
+  xorg-x11-fonts-cyrillic
 
-# Optional: Make sure the cache for Puppeteer is set properly
-echo "Setting Puppeteer cache location..."
-export PUPPETEER_CACHE_DIR=/tmp/puppeteer_cache
+echo "Done installing Puppeteer dependencies."
