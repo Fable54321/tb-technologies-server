@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Installing required libraries for Puppeteer..."
 
 sudo yum install -y \
