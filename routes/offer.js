@@ -8,6 +8,8 @@ dotenv.config();
 
 const router = express.Router();
 
+
+router.use(express.json());
 router.use(cors());
 
 router.get('/interest', (req, res) => {
