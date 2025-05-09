@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.use(cors());
 
-router.get('/', (req, res) => {
-  res.send('Offer route is active');
+router.get('/interest', (req, res) => {
+  res.send('Save-signature route is working!');
 });
 
 const from = process.env.EMAIL_FROM;
