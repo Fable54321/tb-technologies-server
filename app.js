@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url';
 import stripeRoute from './routes/stripe.js'
 import signatureRoute from './routes/signature.js'
 import mongoose from 'mongoose';
+import offerRoute from './routes/offer.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,6 +47,7 @@ app.use('/pdfs', express.static(path.join(__dirname, 'pdfs')));
 
 app.use('/signature', signatureRoute);
 app.use('/stripe', stripeRoute);
+app.use('/offer', offerRoute);
 
 app.use(express.json());
 
