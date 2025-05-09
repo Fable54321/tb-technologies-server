@@ -1,8 +1,11 @@
 import express from 'express';
 import nodeMailer from 'nodemailer';
 import rateLimit from 'express-rate-limit';
+import cors from 'cors';
 
 const router = express.Router();
+
+router.use(cors());
 
 const from = process.env.EMAIL_FROM;
 const to = process.env.EMAIL_TO;
