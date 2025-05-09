@@ -2,13 +2,16 @@ import express from 'express';
 import nodeMailer from 'nodemailer';
 import rateLimit from 'express-rate-limit';
 import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const router = express.Router();
 
 router.use(cors());
 
 router.get('/interest', (req, res) => {
-  res.send('Save-signature route is working!');
+  res.send('offer route is working!');
 });
 
 const from = process.env.EMAIL_FROM;
