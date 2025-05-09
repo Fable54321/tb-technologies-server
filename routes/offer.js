@@ -7,6 +7,10 @@ const router = express.Router();
 
 router.use(cors());
 
+router.get('/', (req, res) => {
+  res.send('Offer route is active');
+});
+
 const from = process.env.EMAIL_FROM;
 const to = process.env.EMAIL_TO;
 const subject = 'Nouvel intérêt pour l\'offre publicitaire';
